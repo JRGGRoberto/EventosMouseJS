@@ -57,7 +57,7 @@ Ao Clicar um botão e mante-lo pressionado irá guardar este valor e ao solta-lo
 
 
 ![alt eventos](./doc/usado.png)
-Apenas 0, 1 e 2 no exemplo. Valor correspondente a VarArry da tabela
+Apenas 0, 1 e 2 no exemplo. Valor correspondente a VarArray da tabela
 
 [Preview](https://htmlpreview.github.io/?https://github.com/JRGGRoberto/EventosMouseJS/blob/main/EventoMouse.html)
 
