@@ -32,18 +32,35 @@ Primeiro passo para entender eventos do mouse que conseguem ser capturados em Ja
     │ └─────────────────────────────────┘ │ 
     └─────────────────────────────────────┘
 ```
+Ao movimentar o mouse verás os valores de X e Y do cursor.
+Ao Clicar um botão e mante-lo pressionado irá guardar este valor e ao solta-lo mostrará o valor onde realizou a solta.
+<table>
+  <tr>
+    <th rowspan="2">Nome</th>
+    <th rowspan="2">VarArray</th>
+    <th colspan="2">Posição quando clicado</th>
+    <th colspan="2">Posição quando desclicado</th>
+  </tr>
+  <tr>
+    <th>X</th> <th>Y</th>  <th>X</th><th>Y</th>
+  </tr>
+  <tr>
+    <td>BtnL</td>  <td>0</td>  <td></td> <td></td>  <td></td> <td> </td>
+  </tr>
+  <tr>
+    <td>BtnM</td>  <td>1</td>  <td></td> <td></td>  <td></td> <td> </td>
+  </tr>
+  <tr>
+    <td>BtnR</td>  <td>2</td>  <td></td> <td></td>  <td></td> <td> </td>
+  </tr>
+</table>
 
-| Nome  | VarArray | Posição quando clicado <td colspan=2>| Posição quando desclicado <td colspan=2>|
-| Nome  | VarArray | X     | Y     | X     | Y     |
-| :---  |  :---:   | :---: | :---: |:---: | :---: |
-| BtnL  |    0     |  |  | |  |
-| BtnM  |    1     |  |  | |  |
-| BtnR  |    2     |  |  | |  |
-
-Quando pressinado fiva em 
 
 ![alt eventos](./doc/usado.png)
 Apenas 0, 1 e 2 no exemplo. Valor correspondente a VarArry da tabela
+
+[Preview](https://htmlpreview.github.io/?https://github.com/JRGGRoberto/EventosMouseJS/blob/main/EventoMouse.html)
+
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) 
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
