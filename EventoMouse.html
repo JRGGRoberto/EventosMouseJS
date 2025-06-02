@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Layout com Box Posicionável</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #f0f0f0;
+      position: relative;
+      font-family: sans-serif;
+      font-size: 10px;
+    }
+
+    /* Container principal - a "box" */
+    .box {
+      position: absolute;
+      width: 260px;
+      padding: 5px;
+      background: #fff;
+      border: 2px solid #333;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px 0;
+      padding-top: 5px;
+    }
+
+    .button {
+      width: 60px;
+      height: 20px;
+      background-color: #ddd;
+      border: 1px solid #aaa;
+      text-align: center;
+      line-height: 20px;
+      font-weight: bold;
+      font-size: 10px;
+    }
+
+    .group {
+      display: flex;
+      border: 1px solid #aaa;
+      margin: 0 3px;
+      font-size: 10px;
+    }
+
+    .input {
+      width: 50px;
+      height: 20px;
+      border-left: 1px solid #aaa;
+      text-align: center;
+      line-height: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .input:first-child {
+      border-left: none;
+    }
+
+    .pos-row {
+      display: flex;
+      margin-top: 5px;
+      justify-content: space-between;
+    }
+
+    .pos-label {
+      width: 60px;
+      background: #ddd;
+      border: 1px solid #aaa;
+      text-align: center;
+      line-height: 20px;
+    }
+
+    .pos-input {
+      flex: 1;
+      border: 1px solid #aaa;
+      margin-left: 5px;
+      text-align: center;
+      line-height: 20px;
+      background: #f9f9f9;
+    }
+
+    .select-container {
+      margin-top: 10px;
+    }
+
+    .select {
+      width: 100%;
+      height: 20px;
+      font-size: 10px;
+    }
+
+    /* Posições do .box */
+    .pos1 { top: 10px; left: 10px; }
+    .pos2 { top: 10px; right: 10px; }
+    .pos3 { bottom: 10px; left: 10px; }
+    .pos4 { bottom: 10px; right: 10px; }
+  </style>
+</head>
+<body>
+
+  <div class="box pos1" id="box">
+    <!-- Linha BtnL -->
+    <div class="row">
+      <div class="button">BtnL</div>
+      <div class="group" id="group-xl1-yl1">
+        <div class="input" id="XL1"></div>
+        <div class="input" id="YL1"></div>
+      </div>
+      <div class="group" id="group-xl2-yl2">
+        <div class="input" id="XL2"></div>
+        <div class="input" id="YL2"></div>
+      </div>
+    </div>
+
+    <!-- Linha BtnM -->
+    <div class="row">
+      <div class="button">BtnM</div>
+      <div class="group" id="group-xm1-ym1">
+        <div class="input" id="XM1"></div>
+        <div class="input" id="YM1"></div>
+      </div>
+      <div class="group" id="group-xm2-ym2">
+        <div class="input" id="XM2"></div>
+        <div class="input" id="YM2"></div>
+      </div>
+    </div>
+
+    <!-- Linha BtnR -->
+    <div class="row">
+      <div class="button">BtnR</div>
+      <div class="group" id="group-xr1-yr1">
+        <div class="input" id="XR1"></div>
+        <div class="input" id="YR1"></div>
+      </div>
+      <div class="group" id="group-xr2-yr2">
+        <div class="input" id="XR2"></div>
+        <div class="input" id="YR2"></div>
+      </div>
+    </div>
+
+    <!-- Linha Pos -->
+    <div class="pos-row">
+      <div class="pos-label">Pos</div>
+      <div class="pos-input" id="X"></div>
+      <div class="pos-input" id="Y"></div>
+    </div>
+
+    <!-- Select 
+     Se quiser alterar o inicio padrao   <div class="box pos1" id="box">
+      mudar o valor de pos1 para a que quiser e colocar o selected na opção desejada
+     -->
+    <div class="select-container">
+      <select id="CantoPos" class="select" onchange="AlterarPos()">
+        <option value="1" selected>EsqSup</option>
+        <option value="2">DirSup</option>
+        <option value="3">EsqInf</option>
+        <option value="4">DirInf</option>
+      </select>
+    </div>
+  </div>
+
+    <pre>
+    
+    ┌─────────────────────────────────────┐  ╔═════════════════════════════════════╗
+    │ ┌──────┐ ┌─────┬─────┐┌─────┬─────┐ │  ║ ┌──────┐ ┌─────┬─────┐┌─────┬─────┐ ║
+    │ │ BtnL │ │ XL1 │ YL1 ││ XL2 │ YL2 │ │  ║ │ BtnL │ │ XL1 │ YL1 ││ XL2 │ YL2 │ ║
+    │ └──────┘ └─────┴─────┘└─────┴─────┘ │  ║ └──────┘ └─────┴─────┘└─────┴─────┘ ║
+    ├─────────────────────────────────────┤  ╟─────────────────────────────────────╢ 
+    │ ┌──────┐ ┌─────┬─────┐┌─────┬─────┐ │  ║ ┌──────┐ ┌─────┬─────┐┌─────┬─────┐ ║
+    │ │ BtnM │ │ XM1 │ YM1 ││ XM2 │ YM2 │ │  ║ │ BtnM │ │ XM1 │ YM1 ││ XM2 │ YM2 │ ║
+    │ └──────┘ └─────┴─────┘└─────┴─────┘ │  ║ └──────┘ └─────┴─────┘└─────┴─────┘ ║
+    ├─────────────────────────────────────┤  ╟─────────────────────────────────────╢
+    │ ┌──────┐ ┌─────┬─────┐┌─────┬─────┐ │  ║ ┌──────┐ ┌─────┬─────┐┌─────┬─────┐ ║
+    │ │ BtnR │ │ XR1 │ YR1 ││ XR2 │ YR2 │ │  ║ │ BtnR │ │ XR1 │ YR1 ││ XR2 │ YR2 │ ║
+    │ └──────┘ └─────┴─────┘└─────┴─────┘ │  ║ └──────┘ └─────┴─────┘└─────┴─────┘ ║
+    ├─────────────────────────────────────┤  ╟─────────────────────────────────────╢
+    │ ┌──────┐ ┌───────────┐┌───────────┐ │  ║ ┌──────┐ ┌───────────┐┌───────────┐ ║
+    │ │ Pos  │ │     X     ││     Y     │ │  ║ │ Pos  │ │     X     ││     Y     │ ║
+    │ └──────┘ └───────────┘└───────────┘ │  ║ └──────┘ └───────────┘└───────────┘ ║
+    ├─────────────────────────────────────┤  ╟─────────────────────────────────────╢
+    │ ┌─────────────────────────────────┐ │  ║ ┌─────────────────────────────────┐ ║
+    │ │ DirSup                        ▼ │ │  ║ │ DirSup                        ▼ │ ║
+    │ └─────────────────────────────────┘ │  ║ └─────────────────────────────────┘ ║
+    └─────────────────────────────────────┘  ╚═════════════════════════════════════╝
+
+            
+    ┌───────────────────┐
+    │      ┌─────┐      │
+    │      │  ↑  │      │
+    │┌─────┼─────┼─────┐│
+    ││  ←  │  ↓  │  →  ││
+    │└─────┴─────┴─────┘│
+    └───────────────────┘
+https://en.m.wikipedia.org/wiki/List_of_Unicode_characters
+    </pre>
+
+<script>
+
+  let tela = document.getElementsByTagName("body")[0];
+  let objXL1 = document.getElementById("XL1");
+  let objYL1 = document.getElementById("YL1"); 
+  let objXL2 = document.getElementById("XL2");
+  let objYL2 = document.getElementById("YL2");
+  let objXM1 = document.getElementById("XM1");
+  let objYM1 = document.getElementById("YM1");
+  let objXM2 = document.getElementById("XM2");
+  let objYM2 = document.getElementById("YM2");
+  let objXR1 = document.getElementById("XR1");
+  let objYR1 = document.getElementById("YR1");
+  let objXR2 = document.getElementById("XR2");
+  let objYR2 = document.getElementById("YR2");
+  let objX = document.getElementById("X");
+  let objY = document.getElementById("Y");
+
+  function btnL(bol){
+    if (bol) {
+      objXL1.style.backgroundColor = "#5F9EA0"; // Cor do grupo XL1 e YL1
+      objYL1.style.backgroundColor = "#5F9EA0";
+      objXL2.style.backgroundColor = "#ff9999"; // Cor do grupo XL2 e YL2
+      objYL2.style.backgroundColor = "#ff9999";
+    } else {
+      objXL1.style.backgroundColor = "#ff9999"; // Resetando cor do grupo XL1 e YL1
+      objYL1.style.backgroundColor = "#ff9999";
+      objXL2.style.backgroundColor = "#5F9EA0"; // Resetando cor do grupo XL2 e YL2
+      objYL2.style.backgroundColor = "#5F9EA0";
+    }
+  }
+
+  function btnM(bol){
+    if (bol) {
+      objXM1.style.backgroundColor = "#5F9EA0"; // Cor do grupo XL1 e YL1
+      objYM1.style.backgroundColor = "#5F9EA0";
+      objXM2.style.backgroundColor = "#ff9999"; // Cor do grupo XL2 e YL2
+      objYM2.style.backgroundColor = "#ff9999";
+    } else {
+      objXM1.style.backgroundColor = "#ff9999"; // Resetando cor do grupo XL1 e YL1
+      objYM1.style.backgroundColor = "#ff9999";
+      objXM2.style.backgroundColor = "#5F9EA0"; // Resetando cor do grupo XL2 e YL2
+      objYM2.style.backgroundColor = "#5F9EA0";
+    }
+  }
+
+  function btnR(bol){
+    if (bol) {
+      objXR1.style.backgroundColor = "#5F9EA0"; // Cor do grupo XL1 e YL1
+      objYR1.style.backgroundColor = "#5F9EA0";
+      objXR2.style.backgroundColor = "#ff9999"; // Cor do grupo XL2 e YL2
+      objYR2.style.backgroundColor = "#ff9999";
+    } else {
+      objXR1.style.backgroundColor = "#ff9999"; // Resetando cor do grupo XL1 e YL1
+      objYR1.style.backgroundColor = "#ff9999";
+      objXR2.style.backgroundColor = "#5F9EA0"; // Resetando cor do grupo XL2 e YL2
+      objYR2.style.backgroundColor = "#5F9EA0";
+    }
+  }
+  
+  let x = null;
+  let y = null;
+  btnL(false);
+  btnM(false);
+  btnR(false);
+    
+    
+  document.addEventListener("mousemove", function(event) {
+    x = event.clientX;
+    y = event.clientY;
+    X.innerHTML = x;
+    Y.innerHTML = y;
+  });
+
+  
+  document.addEventListener('mousedown', (event) => {
+    const botaoPressionado = event.button;
+
+    if (botaoPressionado === 0) { // Botão esquerdo
+      btnL(true);
+      objXL1.innerHTML = x; 
+      objYL1.innerHTML = y; 
+    //  console.log('Botão esquerdo pressionado');
+    } else if (botaoPressionado === 1) { // Botão Meio (se presente)
+      btnM(true);
+      objXM1.innerHTML = x; 
+      objYM1.innerHTML = y; 
+    //  console.log('Botão direito pressionado');
+    } else if (botaoPressionado === 2) { // Botão do direito
+      btnR(true);
+      objXR1.innerHTML = x; 
+      objYR1.innerHTML = y; 
+    //  console.log('Botão do meio pressionado');
+    } else {
+      console.log('Outro botão pressionado');
+    }
+  });
+
+
+  document.addEventListener('mouseup', (event) => {
+    const botaoPressionado = event.button;
+
+    if (botaoPressionado === 0) { // Botão esquerdo
+      btnL(false);
+      objXL2.innerHTML = x; 
+      objYL2.innerHTML = y; 
+    //  console.log('Botão esquerdo solto');
+    } else if (botaoPressionado === 1) { // Botão Meio (se presente)
+      btnM(false);
+      objXM2.innerHTML = x; 
+      objYM2.innerHTML = y; 
+    //  console.log('Botão direito solto');
+    } else if (botaoPressionado === 2) { // Botão do direito
+      btnR(false);
+      objXR2.innerHTML = x; 
+      objYR2.innerHTML = y; 
+    //  console.log('Botão do meio solto');
+    } else {
+      console.log('Outro botão solto');
+    }
+  });
+
+  document.addEventListener('wheel', (event) => {
+    console.log('Rolagem da roda:', window.scrollY);//event.deltaY);
+  });
+  
+
+function AlterarPos() {
+  const select = document.getElementById('CantoPos');
+  const box = document.getElementById('box');
+  // Remove classes antigas de posição
+  box.classList.remove('pos1', 'pos2', 'pos3', 'pos4');
+  // Adiciona nova posição
+  box.classList.add('pos' + select.value);
+}
+
+
+
+
+</script>
+
+</body>
+  
+</html>
